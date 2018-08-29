@@ -32,36 +32,36 @@ let User = class User {
     }
 };
 __decorate([
-    Class.Public(),
-    Types.Validate(string)
+    Types.Validate(string),
+    Class.Public()
 ], User.prototype, "name", void 0);
 __decorate([
-    Class.Public(),
-    Types.Validate(email)
+    Types.Validate(email),
+    Class.Public()
 ], User.prototype, "email", void 0);
 __decorate([
-    Class.Public(),
-    Types.Validate(integer)
+    Types.Validate(integer),
+    Class.Public()
 ], User.prototype, "age", void 0);
 __decorate([
-    Class.Public(),
-    Types.Validate(decimal)
+    Types.Validate(decimal),
+    Class.Public()
 ], User.prototype, "points", void 0);
 __decorate([
-    Class.Public(),
-    Types.Validate(timestamp)
+    Types.Validate(timestamp),
+    Class.Public()
 ], User.prototype, "birthDate", void 0);
 __decorate([
-    Class.Public(),
-    Types.Validate(instance)
+    Types.Validate(instance),
+    Class.Public()
 ], User.prototype, "createdAt", void 0);
 __decorate([
-    Class.Public(),
-    Types.Validate([enumeration, empty])
+    Types.Validate([enumeration, empty]),
+    Class.Public()
 ], User.prototype, "state", void 0);
 User = __decorate([
-    Class.Describe(),
-    Types.Validate(string, email)
+    Types.Validate(string, email),
+    Class.Describe()
 ], User);
 // Initialize the entity data.
 const user = new User('Silas B. Domingos', 'test@test.br');

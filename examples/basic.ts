@@ -19,35 +19,36 @@ const empty = new Types.Common.Undefined();
 /**
  * Example entity.
  */
-@Class.Describe()
+
 @Types.Validate(string, email)
+@Class.Describe()
 class User {
-  @Class.Public()
   @Types.Validate(string)
+  @Class.Public()
   public name: string;
 
-  @Class.Public()
   @Types.Validate(email)
+  @Class.Public()
   public email: string;
 
-  @Class.Public()
   @Types.Validate(integer)
+  @Class.Public()
   public age?: number;
 
-  @Class.Public()
   @Types.Validate(decimal)
+  @Class.Public()
   public points?: number;
 
-  @Class.Public()
   @Types.Validate(timestamp)
+  @Class.Public()
   public birthDate?: string;
 
-  @Class.Public()
   @Types.Validate(instance)
+  @Class.Public()
   public createdAt?: Date;
 
-  @Class.Public()
   @Types.Validate([enumeration, empty])
+  @Class.Public()
   public state?: string;
 
   constructor(name: string, email: string) {

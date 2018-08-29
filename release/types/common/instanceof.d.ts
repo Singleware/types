@@ -1,4 +1,4 @@
-import { ClassConstructor } from '../types';
+import { Constructor } from '../types';
 import { Format } from '../format';
 /**
  * Instance validator class.
@@ -12,7 +12,7 @@ export declare class InstanceOf implements Format {
      * Default constructor.
      * @param type Expected type.
      */
-    constructor(type: ClassConstructor<any>);
+    constructor(type: Constructor);
     /**
      * Validator name.
      */

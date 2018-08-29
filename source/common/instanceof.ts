@@ -4,7 +4,7 @@
  */
 import * as Class from '@singleware/class';
 
-import { ClassConstructor } from '../types';
+import { Constructor } from '../types';
 import { Format } from '../format';
 
 /**
@@ -16,13 +16,13 @@ export class InstanceOf implements Format {
    * Expected type.
    */
   @Class.Private()
-  private type: ClassConstructor<any>;
+  private type: Constructor;
 
   /**
    * Default constructor.
    * @param type Expected type.
    */
-  public constructor(type: ClassConstructor<any>) {
+  public constructor(type: Constructor) {
     this.type = type;
   }
 

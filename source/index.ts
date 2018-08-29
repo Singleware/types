@@ -8,5 +8,5 @@ import * as CommonModule from './common';
 import { Helper } from './helper';
 
 // Aliases
-export const Common = CommonModule;
+export import Common = CommonModule;
 export const Validate = Helper.Validate;

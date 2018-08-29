@@ -5,5 +5,5 @@
 export { Format } from './format';
 import * as CommonModule from './common';
 import { Helper } from './helper';
-export declare const Common: typeof CommonModule;
+export import Common = CommonModule;
 export declare const Validate: typeof Helper.Validate;
