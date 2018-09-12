@@ -6,29 +6,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var Group_1;
+"use strict";
 /**
  * Copyright (C) 2018 Silas B. Domingos
  * This source code is licensed under the MIT License as described in the file LICENSE.
  */
 const Class = require("@singleware/class");
 /**
- * Pattern validator class.
+ * Validation group class.
  */
-let Pattern = class Pattern {
+let Group = Group_1 = class Group {
     /**
      * Default constructor.
-     * @param pattern Expected pattern.
-     * @param alias Pattern alias name.
+     * @param operation Group operation.
+     * @param validators Group validators.
      */
-    constructor(pattern, alias) {
-        this.pattern = pattern;
-        this.alias = alias || pattern.toString();
+    constructor(operation, validators) {
+        /**
+         * Current validator name.
+         */
+        this.current = 'Group';
+        this.operation = operation;
+        this.validators = validators;
     }
     /**
      * Validator name.
      */
     get name() {
-        return `Pattern ${this.alias}`;
+        return this.current;
     }
     /**
      * Validate the specified data.
@@ -36,22 +42,47 @@ let Pattern = class Pattern {
      * @returns Returns true when the data is valid, false otherwise.
      */
     validate(data) {
-        return this.pattern.test(data);
+        let state = false;
+        for (const format of this.validators) {
+            this.current = format.name;
+            state = format.validate(data);
+            if ((this.operation === Group_1.AND && !state) || (this.operation === Group_1.OR && state)) {
+                break;
+            }
+        }
+        return state;
     }
 };
+/**
+ * 'and' operation name.
+ */
+Group.AND = 1;
+/**
+ * 'or' operation name.
+ */
+Group.OR = 2;
 __decorate([
     Class.Private()
-], Pattern.prototype, "pattern", void 0);
+], Group.prototype, "operation", void 0);
 __decorate([
     Class.Private()
-], Pattern.prototype, "alias", void 0);
+], Group.prototype, "validators", void 0);
+__decorate([
+    Class.Private()
+], Group.prototype, "current", void 0);
 __decorate([
     Class.Public()
-], Pattern.prototype, "name", null);
+], Group.prototype, "name", null);
 __decorate([
     Class.Public()
-], Pattern.prototype, "validate", null);
-Pattern = __decorate([
+], Group.prototype, "validate", null);
+__decorate([
+    Class.Public()
+], Group, "AND", void 0);
+__decorate([
+    Class.Public()
+], Group, "OR", void 0);
+Group = Group_1 = __decorate([
     Class.Describe()
-], Pattern);
-exports.Pattern = Pattern;
+], Group);
+exports.Group = Group;

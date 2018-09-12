@@ -47,7 +47,7 @@ class User {
   @Class.Public()
   public createdAt?: Date;
 
-  @Types.Validate([enumeration, empty])
+  @Types.Validate(new Types.Common.Group(Types.Common.Group.OR, [enumeration, empty]))
   @Class.Public()
   public state?: string;
 

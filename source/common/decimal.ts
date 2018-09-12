@@ -58,6 +58,6 @@ export class Decimal extends Pattern {
    */
   @Class.Public()
   public validate(data: any): boolean {
-    return super.validate(data) && data >= (this.min || -Infinity) && data <= (this.max || Infinity);
+    return typeof data === 'number' || (super.validate(data) && data >= (this.min || -Infinity) && data <= (this.max || Infinity));
   }
 }

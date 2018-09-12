@@ -56,7 +56,7 @@ __decorate([
     Class.Public()
 ], User.prototype, "createdAt", void 0);
 __decorate([
-    Types.Validate([enumeration, empty]),
+    Types.Validate(new Types.Common.Group(Types.Common.Group.OR, [enumeration, empty])),
     Class.Public()
 ], User.prototype, "state", void 0);
 User = __decorate([

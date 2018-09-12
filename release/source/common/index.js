@@ -32,3 +32,5 @@ var string_1 = require("./string");
 exports.String = string_1.String;
 var boolean_1 = require("./boolean");
 exports.Boolean = boolean_1.Boolean;
+var group_1 = require("./group");
+exports.Group = group_1.Group;

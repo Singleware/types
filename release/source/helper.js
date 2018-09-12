@@ -16,21 +16,7 @@ const Class = require("@singleware/class");
  */
 let Helper = class Helper {
     /**
-     * Test whether the specified value is valid for the given validators.
-     * @param value Value to be validated.
-     * @param validators List of possible validators.
-     * @returns Returns true when one validator pass, false when all validators fail.
-     */
-    static testValidators(value, validators) {
-        for (const validator of validators) {
-            if (validator.validate(value)) {
-                return true;
-            }
-        }
-        return false;
-    }
-    /**
-     * Validate the list of specified arguments according to the given validators.
+     * Validates the specified arguments list according to the given validators.
      * @param property Property name.
      * @param validators List of validators.
      * @param args Arguments to be validated.
@@ -38,13 +24,9 @@ let Helper = class Helper {
      */
     static validateArguments(property, validators, args) {
         for (let i = 0; i < validators.length; ++i) {
-            const formats = (validators[i] instanceof Array ? validators[i] : [validators[i]]);
-            if (!this.testValidators(args[i], formats)) {
-                const names = [];
-                for (const format of formats) {
-                    names.push(`'${format.name}'`);
-                }
-                throw new TypeError(`Validation of '${property}' with ${names.join(', ')} has been failed.`);
+            const format = validators[i];
+            if (!format.validate(args[i])) {
+                throw new TypeError(`Validation of '${property}' with ${format.name} has been failed.`);
             }
         }
     }
@@ -56,16 +38,14 @@ let Helper = class Helper {
      * @returns Returns the wrapped callback.
      */
     static validatorWrapper(property, callback, validators) {
-        const validation = (args) => {
-            this.validateArguments(property, validators, args);
-        };
+        const validation = (args) => this.validateArguments(property, validators, args);
         return function (...args) {
             validation(args);
             return callback.call(this, ...args);
         };
     }
     /**
-     *  Wraps the specified member with the given validators to ensure its type rules at runtime.
+     *  Wraps the specified member with the given validators to ensure its types at runtime.
      * @param property Property name.
      * @param validators List of validators.
      * @param descriptor Property descriptor.
@@ -85,7 +65,7 @@ let Helper = class Helper {
         return descriptor;
     }
     /**
-     * Wraps the specified class with the given validators to ensure its type rules at runtime.
+     * Wraps the specified class with the given validators to ensure its types at runtime.
      * @param type Class type.
      * @param validators List of validators.
      * @returns Returns the wrapped class.
@@ -99,8 +79,8 @@ let Helper = class Helper {
         });
     }
     /**
-     * Decorates the specified member to validate its types rules at runtime.
-     * @param validators Specify one validator per member argument or use arrays to specify multiple validators per argument.
+     * Decorates the specified member to validate its types at runtime.
+     * @param validators Specify one validator per member argument.
      * @returns Returns the decorator method.
      */
     static Validate(...validators) {
@@ -112,9 +92,6 @@ let Helper = class Helper {
         };
     }
 };
-__decorate([
-    Class.Private()
-], Helper, "testValidators", null);
 __decorate([
     Class.Private()
 ], Helper, "validateArguments", null);

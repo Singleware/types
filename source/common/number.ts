@@ -57,9 +57,6 @@ export class Number implements Format {
    */
   @Class.Public()
   public validate(data: any): boolean {
-    if (typeof data === 'number') {
-      return data >= (this.min || -Infinity) && data <= (this.max || Infinity);
-    }
-    return false;
+    return typeof data === 'number' && data >= (this.min || -Infinity) && data <= (this.max || Infinity);
   }
 }

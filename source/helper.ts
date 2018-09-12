@@ -4,7 +4,7 @@
  */
 import * as Class from '@singleware/class';
 
-import { Callable, Constructor, ArgumentDecorator, ValidatorList } from './types';
+import { Callable, Constructor, GenericDecorator } from './types';
 import { Format } from './format';
 
 /**
@@ -13,38 +13,18 @@ import { Format } from './format';
 @Class.Describe()
 export class Helper {
   /**
-   * Test whether the specified value is valid for the given validators.
-   * @param value Value to be validated.
-   * @param validators List of possible validators.
-   * @returns Returns true when one validator pass, false when all validators fail.
-   */
-  @Class.Private()
-  private static testValidators(value: any, validators: Format[]): boolean {
-    for (const validator of validators) {
-      if (validator.validate(value)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * Validate the list of specified arguments according to the given validators.
+   * Validates the specified arguments list according to the given validators.
    * @param property Property name.
    * @param validators List of validators.
    * @param args Arguments to be validated.
    * @throws Throws a type error when the validation fails.
    */
   @Class.Private()
-  private static validateArguments(property: PropertyKey, validators: ValidatorList, args: ArrayLike<any>): void {
+  private static validateArguments(property: string, validators: Format[], args: ArrayLike<any>): void {
     for (let i = 0; i < validators.length; ++i) {
-      const formats = <Format[]>(validators[i] instanceof Array ? validators[i] : [validators[i]]);
-      if (!this.testValidators(args[i], formats)) {
-        const names = [];
-        for (const format of formats) {
-          names.push(`'${format.name}'`);
-        }
-        throw new TypeError(`Validation of '${property as string}' with ${names.join(', ')} has been failed.`);
+      const format = validators[i];
+      if (!format.validate(args[i])) {
+        throw new TypeError(`Validation of '${property}' with ${format.name} has been failed.`);
       }
     }
   }
@@ -57,10 +37,8 @@ export class Helper {
    * @returns Returns the wrapped callback.
    */
   @Class.Private()
-  private static validatorWrapper(property: PropertyKey, callback: Callable, validators: ValidatorList): Callable {
-    const validation = (args: any[]) => {
-      this.validateArguments(property, validators, args);
-    };
+  private static validatorWrapper(property: string, callback: Callable, validators: Format[]): Callable {
+    const validation = (args: any[]) => this.validateArguments(property, validators, args);
     return function(this: Object, ...args: any[]): any {
       validation(args);
       return callback.call(this, ...args);
@@ -68,7 +46,7 @@ export class Helper {
   }
 
   /**
-   *  Wraps the specified member with the given validators to ensure its type rules at runtime.
+   *  Wraps the specified member with the given validators to ensure its types at runtime.
    * @param property Property name.
    * @param validators List of validators.
    * @param descriptor Property descriptor.
@@ -76,7 +54,7 @@ export class Helper {
    * @throws Throws an type error when the property is not a method or property setter.
    */
   @Class.Private()
-  private static wrapMember(property: PropertyKey, validators: ValidatorList, descriptor: PropertyDescriptor): PropertyDescriptor {
+  private static wrapMember(property: string, validators: Format[], descriptor: PropertyDescriptor): PropertyDescriptor {
     if (descriptor.value instanceof Function) {
       descriptor.value = this.validatorWrapper(property, descriptor.value, validators);
     } else if (descriptor.set instanceof Function) {
@@ -88,13 +66,13 @@ export class Helper {
   }
 
   /**
-   * Wraps the specified class with the given validators to ensure its type rules at runtime.
+   * Wraps the specified class with the given validators to ensure its types at runtime.
    * @param type Class type.
    * @param validators List of validators.
    * @returns Returns the wrapped class.
    */
   @Class.Private()
-  private static wrapClass(type: Constructor, validators: ValidatorList): Constructor {
+  private static wrapClass(type: Constructor, validators: Format[]): Constructor {
     return new Proxy(type, {
       construct: (target: Constructor, args: ArrayLike<any>, original: Object): Object => {
         this.validateArguments(type.name, validators, args);
@@ -104,15 +82,15 @@ export class Helper {
   }
 
   /**
-   * Decorates the specified member to validate its types rules at runtime.
-   * @param validators Specify one validator per member argument or use arrays to specify multiple validators per argument.
+   * Decorates the specified member to validate its types at runtime.
+   * @param validators Specify one validator per member argument.
    * @returns Returns the decorator method.
    */
   @Class.Public()
-  public static Validate(...validators: ValidatorList): ArgumentDecorator {
+  public static Validate(...validators: Format[]): GenericDecorator {
     return (scope: Object, property?: PropertyKey, descriptor?: PropertyDescriptor): any => {
       if (property) {
-        return this.wrapMember(property, validators, descriptor || {});
+        return this.wrapMember(<string>property, validators, descriptor || {});
       }
       return this.wrapClass(<Constructor>scope, validators);
     };

@@ -6,8 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var String_1;
-"use strict";
 /**
  * Copyright (C) 2018 Silas B. Domingos
  * This source code is licensed under the MIT License as described in the file LICENSE.
@@ -16,7 +14,7 @@ const Class = require("@singleware/class");
 /**
  * String validator class.
  */
-let String = String_1 = class String {
+let String = class String {
     /**
      * Default constructor.
      * @param min Min string length.
@@ -47,10 +45,7 @@ let String = String_1 = class String {
      * @returns Returns true when the data is valid, false otherwise.
      */
     validate(data) {
-        if (typeof data === 'string' || data instanceof String_1) {
-            return data.length >= (this.min || -Infinity) && data.length <= (this.max || Infinity);
-        }
-        return false;
+        return typeof data === 'string' && data.length >= (this.min || -Infinity) && data.length <= (this.max || Infinity);
     }
 };
 __decorate([
@@ -65,7 +60,7 @@ __decorate([
 __decorate([
     Class.Public()
 ], String.prototype, "validate", null);
-String = String_1 = __decorate([
+String = __decorate([
     Class.Describe()
 ], String);
 exports.String = String;

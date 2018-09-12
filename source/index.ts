@@ -5,8 +5,9 @@
 export { Format } from './format';
 
 import * as CommonModule from './common';
+export import Common = CommonModule;
+
 import { Helper } from './helper';
 
 // Aliases
-export import Common = CommonModule;
 export const Validate = Helper.Validate;

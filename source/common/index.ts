@@ -16,3 +16,4 @@ export { Timestamp } from './timestamp';
 export { Enumeration } from './enumeration';
 export { String } from './string';
 export { Boolean } from './boolean';
+export { Group } from './group';

@@ -47,7 +47,7 @@ let Integer = class Integer extends pattern_1.Pattern {
      * @returns Returns true when the data is valid, false otherwise.
      */
     validate(data) {
-        return super.validate(data) && data >= (this.min || -Infinity) && data <= (this.max || Infinity);
+        return typeof data === 'number' && super.validate(data) && data >= (this.min || -Infinity) && data <= (this.max || Infinity);
     }
 };
 __decorate([

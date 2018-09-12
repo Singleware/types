@@ -16,11 +16,6 @@ export type Callable<T = any> = Class.Callable<T>;
 export type Constructor<T extends Object = any> = Class.Constructor<T>;
 
 /**
- * Type declaration for decorators of classes and members arguments.
+ * Type declaration for decorators of class, members and properties.
  */
-export type ArgumentDecorator = (type: any, property?: PropertyKey, descriptor?: PropertyDescriptor) => any;
-
-/**
- * Type declaration for validator lists.
- */
-export type ValidatorList = (Format | Format[])[];
+export type GenericDecorator = (scope: Object | Function, property?: PropertyKey, descriptor?: PropertyDescriptor) => any;

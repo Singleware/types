@@ -45,10 +45,7 @@ let Number = class Number {
      * @returns Returns true when the data is valid, false otherwise.
      */
     validate(data) {
-        if (typeof data === 'number') {
-            return data >= (this.min || -Infinity) && data <= (this.max || Infinity);
-        }
-        return false;
+        return typeof data === 'number' && data >= (this.min || -Infinity) && data <= (this.max || Infinity);
     }
 };
 __decorate([

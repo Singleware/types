@@ -57,9 +57,6 @@ export class String implements Format {
    */
   @Class.Public()
   public validate(data: any): boolean {
-    if (typeof data === 'string' || data instanceof String) {
-      return (<string>data).length >= (this.min || -Infinity) && (<string>data).length <= (this.max || Infinity);
-    }
-    return false;
+    return typeof data === 'string' && (<string>data).length >= (this.min || -Infinity) && (<string>data).length <= (this.max || Infinity);
   }
 }

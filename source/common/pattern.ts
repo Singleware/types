@@ -38,7 +38,7 @@ export class Pattern implements Format {
    */
   @Class.Public()
   public get name(): string {
-    return `RegExp pattern ${this.alias}`;
+    return `Pattern ${this.alias}`;
   }
 
   /**
