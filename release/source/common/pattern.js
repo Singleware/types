@@ -14,13 +14,14 @@ const Class = require("@singleware/class");
 /**
  * Pattern validator class.
  */
-let Pattern = class Pattern {
+let Pattern = class Pattern extends Class.Null {
     /**
      * Default constructor.
      * @param pattern Expected pattern.
      * @param alias Pattern alias name.
      */
     constructor(pattern, alias) {
+        super();
         this.pattern = pattern;
         this.alias = alias || pattern.toString();
     }

@@ -10,7 +10,7 @@ import { Format } from '../format';
  * Boolean validator class.
  */
 @Class.Describe()
-export class Boolean implements Format {
+export class Boolean extends Class.Null implements Format {
   /**
    * Validator name.
    */

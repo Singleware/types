@@ -25,8 +25,9 @@ const empty = new Types.Common.Undefined();
 /**
  * Example entity.
  */
-let User = class User {
+let User = class User extends Class.Null {
     constructor(name, email) {
+        super();
         this.name = name;
         this.email = email;
     }

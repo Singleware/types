@@ -12,20 +12,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const Class = require("@singleware/class");
 /**
- * Provide decorators and methods to validate type rules at runtime.
+ * Provide decorators and methods to validate types at runtime.
  */
-let Helper = class Helper {
+let Helper = class Helper extends Class.Null {
     /**
-     * Validates the specified arguments list according to the given validators.
+     * Validates the specified parameters list according to the given validators.
      * @param property Property name.
      * @param validators List of validators.
-     * @param args Arguments to be validated.
+     * @param parameters Parameters to be validated.
      * @throws Throws a type error when the validation fails.
      */
-    static validateArguments(property, validators, args) {
+    static validateParameters(property, validators, parameters) {
         for (let i = 0; i < validators.length; ++i) {
             const format = validators[i];
-            if (!format.validate(args[i])) {
+            if (!format.validate(parameters[i])) {
                 throw new TypeError(`Validation of '${property}' with ${format.name} has been failed.`);
             }
         }
@@ -38,10 +38,10 @@ let Helper = class Helper {
      * @returns Returns the wrapped callback.
      */
     static validatorWrapper(property, callback, validators) {
-        const validation = (args) => this.validateArguments(property, validators, args);
-        return function (...args) {
-            validation(args);
-            return callback.call(this, ...args);
+        const validation = (parameters) => this.validateParameters(property, validators, parameters);
+        return function (...parameters) {
+            validation(parameters);
+            return callback.call(this, ...parameters);
         };
     }
     /**
@@ -72,9 +72,9 @@ let Helper = class Helper {
      */
     static wrapClass(type, validators) {
         return new Proxy(type, {
-            construct: (target, args, original) => {
-                this.validateArguments(type.name, validators, args);
-                return Reflect.construct(target, args, original);
+            construct: (target, args, receiver) => {
+                this.validateParameters(type.name, validators, args);
+                return Reflect.construct(target, args, receiver);
             }
         });
     }
@@ -94,7 +94,7 @@ let Helper = class Helper {
 };
 __decorate([
     Class.Private()
-], Helper, "validateArguments", null);
+], Helper, "validateParameters", null);
 __decorate([
     Class.Private()
 ], Helper, "validatorWrapper", null);

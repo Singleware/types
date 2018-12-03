@@ -1,8 +1,13 @@
+/**
+ * Copyright (C) 2018 Silas B. Domingos
+ * This source code is licensed under the MIT License as described in the file LICENSE.
+ */
+import * as Class from '@singleware/class';
 import { Format } from '../format';
 /**
  * Null value validator class.
  */
-export declare class Null implements Format {
+export declare class Null extends Class.Null implements Format {
     /**
      * Validator name.
      */

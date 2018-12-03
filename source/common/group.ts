@@ -10,7 +10,7 @@ import { Format } from '../format';
  * Validation group class.
  */
 @Class.Describe()
-export class Group implements Format {
+export class Group extends Class.Null implements Format {
   /**
    * Group operation.
    */
@@ -35,6 +35,7 @@ export class Group implements Format {
    * @param validators Group validators.
    */
   constructor(operation: 1 | 2, validators: Format[]) {
+    super();
     this.operation = operation;
     this.validators = validators;
   }

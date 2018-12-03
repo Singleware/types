@@ -1,17 +1,22 @@
+/**
+ * Copyright (C) 2018 Silas B. Domingos
+ * This source code is licensed under the MIT License as described in the file LICENSE.
+ */
+import * as Class from '@singleware/class';
 import { GenericDecorator } from './types';
 import { Format } from './format';
 /**
- * Provide decorators and methods to validate type rules at runtime.
+ * Provide decorators and methods to validate types at runtime.
  */
-export declare class Helper {
+export declare class Helper extends Class.Null {
     /**
-     * Validates the specified arguments list according to the given validators.
+     * Validates the specified parameters list according to the given validators.
      * @param property Property name.
      * @param validators List of validators.
-     * @param args Arguments to be validated.
+     * @param parameters Parameters to be validated.
      * @throws Throws a type error when the validation fails.
      */
-    private static validateArguments;
+    private static validateParameters;
     /**
      * Wrapper to make the specified member to be validated with the given validators.
      * @param property Property name.

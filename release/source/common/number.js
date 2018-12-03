@@ -14,13 +14,14 @@ const Class = require("@singleware/class");
 /**
  * Number validator class.
  */
-let Number = class Number {
+let Number = class Number extends Class.Null {
     /**
      * Default constructor.
      * @param min Min value.
      * @param max Max value.
      */
     constructor(min, max) {
+        super();
         this.min = min;
         this.max = max;
     }

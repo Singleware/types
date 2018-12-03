@@ -11,7 +11,7 @@ import { Format } from '../format';
  * Instance validator class.
  */
 @Class.Describe()
-export class InstanceOf implements Format {
+export class InstanceOf extends Class.Null implements Format {
   /**
    * Expected type.
    */
@@ -23,6 +23,7 @@ export class InstanceOf implements Format {
    * @param type Expected type.
    */
   public constructor(type: Constructor) {
+    super();
     this.type = type;
   }
 

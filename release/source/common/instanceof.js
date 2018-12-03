@@ -14,12 +14,13 @@ const Class = require("@singleware/class");
 /**
  * Instance validator class.
  */
-let InstanceOf = class InstanceOf {
+let InstanceOf = class InstanceOf extends Class.Null {
     /**
      * Default constructor.
      * @param type Expected type.
      */
     constructor(type) {
+        super();
         this.type = type;
     }
     /**

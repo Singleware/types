@@ -10,7 +10,7 @@ import { Format } from '../format';
  * Pattern validator class.
  */
 @Class.Describe()
-export class Pattern implements Format {
+export class Pattern extends Class.Null implements Format {
   /**
    * Expected pattern.
    */
@@ -29,6 +29,7 @@ export class Pattern implements Format {
    * @param alias Pattern alias name.
    */
   public constructor(pattern: RegExp, alias?: string) {
+    super();
     this.pattern = pattern;
     this.alias = alias || pattern.toString();
   }

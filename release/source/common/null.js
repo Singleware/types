@@ -14,7 +14,7 @@ const Class = require("@singleware/class");
 /**
  * Null value validator class.
  */
-let Null = class Null {
+let Null = class Null extends Class.Null {
     /**
      * Validator name.
      */

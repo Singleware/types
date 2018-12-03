@@ -10,7 +10,7 @@ import { Format } from '../format';
  * String validator class.
  */
 @Class.Describe()
-export class String implements Format {
+export class String extends Class.Null implements Format {
   /**
    * Min string length.
    */
@@ -29,6 +29,7 @@ export class String implements Format {
    * @param max Max string length.
    */
   public constructor(min?: number, max?: number) {
+    super();
     this.min = min;
     this.max = max;
   }

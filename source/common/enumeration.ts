@@ -10,7 +10,7 @@ import { Format } from '../format';
  * Enumeration validator class.
  */
 @Class.Describe()
-export class Enumeration implements Format {
+export class Enumeration extends Class.Null implements Format {
   /**
    * Expected entries.
    */
@@ -22,6 +22,7 @@ export class Enumeration implements Format {
    * @param entries Expected entries.
    */
   public constructor(...entries: string[]) {
+    super();
     this.entries = entries;
   }
 

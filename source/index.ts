@@ -4,10 +4,19 @@
  */
 export { Format } from './format';
 
-import * as CommonModule from './common';
-export import Common = CommonModule;
+import * as Common from './common';
+export import Common = Common;
 
+/**
+ * Declarations.
+ */
 import { Helper } from './helper';
+import { Format } from './format';
+import { GenericDecorator } from './types';
 
-// Aliases
-export const Validate = Helper.Validate;
+/**
+ * Decorates the specified member to validate its types at runtime.
+ * @param validators Specify one validator per member argument.
+ * @returns Returns the decorator method.
+ */
+export const Validate = (...validators: Format[]): GenericDecorator => Helper.Validate(...validators);

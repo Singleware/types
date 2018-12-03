@@ -10,7 +10,7 @@ import { Format } from '../format';
  * Undefined value validator class.
  */
 @Class.Describe()
-export class Undefined implements Format {
+export class Undefined extends Class.Null implements Format {
   /**
    * Validator name.
    */

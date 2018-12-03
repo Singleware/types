@@ -22,7 +22,7 @@ const empty = new Types.Common.Undefined();
 
 @Types.Validate(string, email)
 @Class.Describe()
-class User {
+class User extends Class.Null {
   @Types.Validate(string)
   @Class.Public()
   public name: string;
@@ -52,6 +52,7 @@ class User {
   public state?: string;
 
   constructor(name: string, email: string) {
+    super();
     this.name = name;
     this.email = email;
   }

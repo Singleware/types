@@ -14,7 +14,7 @@ const Class = require("@singleware/class");
 /**
  * Boolean validator class.
  */
-let Boolean = class Boolean {
+let Boolean = class Boolean extends Class.Null {
     /**
      * Validator name.
      */

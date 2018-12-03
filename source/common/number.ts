@@ -10,7 +10,7 @@ import { Format } from '../format';
  * Number validator class.
  */
 @Class.Describe()
-export class Number implements Format {
+export class Number extends Class.Null implements Format {
   /**
    * Min value.
    */
@@ -29,6 +29,7 @@ export class Number implements Format {
    * @param max Max value.
    */
   public constructor(min?: number, max?: number) {
+    super();
     this.min = min;
     this.max = max;
   }

@@ -1,8 +1,13 @@
+/**
+ * Copyright (C) 2018 Silas B. Domingos
+ * This source code is licensed under the MIT License as described in the file LICENSE.
+ */
+import * as Class from '@singleware/class';
 import { Format } from '../format';
 /**
  * Validation group class.
  */
-export declare class Group implements Format {
+export declare class Group extends Class.Null implements Format {
     /**
      * Group operation.
      */

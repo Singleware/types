@@ -10,7 +10,7 @@ import { Format } from '../format';
  * Type validator class.
  */
 @Class.Describe()
-export class TypeOf implements Format {
+export class TypeOf extends Class.Null implements Format {
   /**
    * Expected type.
    */
@@ -21,6 +21,7 @@ export class TypeOf implements Format {
    * @param type Expected type.
    */
   public constructor(type: string) {
+    super();
     this.type = type;
   }
 

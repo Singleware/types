@@ -1,7 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const CommonModule = require("./common");
-exports.Common = CommonModule;
+const Common = require("./common");
+exports.Common = Common;
+/**
+ * Declarations.
+ */
 const helper_1 = require("./helper");
-// Aliases
-exports.Validate = helper_1.Helper.Validate;
+/**
+ * Decorates the specified member to validate its types at runtime.
+ * @param validators Specify one validator per member argument.
+ * @returns Returns the decorator method.
+ */
+exports.Validate = (...validators) => helper_1.Helper.Validate(...validators);

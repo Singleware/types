@@ -16,6 +16,6 @@ export type Callable<T = any> = Class.Callable<T>;
 export type Constructor<T extends Object = any> = Class.Constructor<T>;
 
 /**
- * Type declaration for decorators of class, members and properties.
+ * Type declaration for decorators of classes and members.
  */
-export type GenericDecorator = (scope: Object | Function, property?: PropertyKey, descriptor?: PropertyDescriptor) => any;
+export type GenericDecorator = <T>(scope: Object | Function, property?: PropertyKey, descriptor?: TypedPropertyDescriptor<T>) => any;

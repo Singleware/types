@@ -16,13 +16,14 @@ const Class = require("@singleware/class");
 /**
  * Validation group class.
  */
-let Group = Group_1 = class Group {
+let Group = Group_1 = class Group extends Class.Null {
     /**
      * Default constructor.
      * @param operation Group operation.
      * @param validators Group validators.
      */
     constructor(operation, validators) {
+        super();
         /**
          * Current validator name.
          */

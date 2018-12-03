@@ -14,12 +14,13 @@ const Class = require("@singleware/class");
 /**
  * Enumeration validator class.
  */
-let Enumeration = class Enumeration {
+let Enumeration = class Enumeration extends Class.Null {
     /**
      * Default constructor.
      * @param entries Expected entries.
      */
     constructor(...entries) {
+        super();
         this.entries = entries;
     }
     /**

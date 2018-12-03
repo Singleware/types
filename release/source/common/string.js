@@ -14,13 +14,14 @@ const Class = require("@singleware/class");
 /**
  * String validator class.
  */
-let String = class String {
+let String = class String extends Class.Null {
     /**
      * Default constructor.
      * @param min Min string length.
      * @param max Max string length.
      */
     constructor(min, max) {
+        super();
         this.min = min;
         this.max = max;
     }

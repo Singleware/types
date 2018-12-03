@@ -8,22 +8,22 @@ import { Callable, Constructor, GenericDecorator } from './types';
 import { Format } from './format';
 
 /**
- * Provide decorators and methods to validate type rules at runtime.
+ * Provide decorators and methods to validate types at runtime.
  */
 @Class.Describe()
-export class Helper {
+export class Helper extends Class.Null {
   /**
-   * Validates the specified arguments list according to the given validators.
+   * Validates the specified parameters list according to the given validators.
    * @param property Property name.
    * @param validators List of validators.
-   * @param args Arguments to be validated.
+   * @param parameters Parameters to be validated.
    * @throws Throws a type error when the validation fails.
    */
   @Class.Private()
-  private static validateArguments(property: string, validators: Format[], args: ArrayLike<any>): void {
+  private static validateParameters(property: string, validators: Format[], parameters: any[]): void {
     for (let i = 0; i < validators.length; ++i) {
       const format = validators[i];
-      if (!format.validate(args[i])) {
+      if (!format.validate(parameters[i])) {
         throw new TypeError(`Validation of '${property}' with ${format.name} has been failed.`);
       }
     }
@@ -38,10 +38,10 @@ export class Helper {
    */
   @Class.Private()
   private static validatorWrapper(property: string, callback: Callable, validators: Format[]): Callable {
-    const validation = (args: any[]) => this.validateArguments(property, validators, args);
-    return function(this: Object, ...args: any[]): any {
-      validation(args);
-      return callback.call(this, ...args);
+    const validation = (parameters: any[]) => this.validateParameters(property, validators, parameters);
+    return function(this: Object, ...parameters: any[]): any {
+      validation(parameters);
+      return callback.call(this, ...parameters);
     };
   }
 
@@ -74,9 +74,9 @@ export class Helper {
   @Class.Private()
   private static wrapClass(type: Constructor, validators: Format[]): Constructor {
     return new Proxy(type, {
-      construct: (target: Constructor, args: ArrayLike<any>, original: Object): Object => {
-        this.validateArguments(type.name, validators, args);
-        return Reflect.construct(target, args, original);
+      construct: (target: Constructor, args: any[], receiver: any): Object => {
+        this.validateParameters(type.name, validators, args);
+        return Reflect.construct(target, args, receiver);
       }
     });
   }

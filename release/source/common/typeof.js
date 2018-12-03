@@ -14,12 +14,13 @@ const Class = require("@singleware/class");
 /**
  * Type validator class.
  */
-let TypeOf = class TypeOf {
+let TypeOf = class TypeOf extends Class.Null {
     /**
      * Default constructor.
      * @param type Expected type.
      */
     constructor(type) {
+        super();
         this.type = type;
     }
     /**
